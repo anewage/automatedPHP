@@ -17,14 +17,14 @@ RUN apt-get update \
 
 # Install php
 RUN apt-get install -y \
-    php php-apcu php-bz2 php-cache php-cli php-curl php-fpm php-gd php-geoip \
-    php-gettext php-gmp php-imagick php-imap php-json php-mcrypt php-mbstring php-zip \
-    php-memcached php-mongodb php-mysql php-pear php-redis php-xml php-intl php-soap \
-    php-sqlite3 php-dompdf php-fpdf php-guzzlehttp php-guzzlehttp-psr7 php-jwt  php-ssh2 php-bcmath
+    php7.0 php-apcu php7.0-bz2 php-cache php7.0-opcache php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php-geoip \
+    php-gettext php7.0-gmp php-imagick php7.0-imap php7.0-json php7.0-mcrypt php7.0-mbstring php7.0-zip \
+    php-memcached php7.0-mongodb php-mongodb php7.0-mysql php-pear php-redis php7.0-xml php7.0-intl php7.0-soap \
+    php7.0-sqlite3 php-dompdf php-fpdf php-guzzlehttp php-guzzlehttp-psr7 php-jwt  php-ssh2 php7.0-bcmath
 
 # Install node.js
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash \
- && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash \
+ && apt-get install -y nodejs build-essential
 
 # Install Additional Packages
 RUN apt-get install -y \
