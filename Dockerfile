@@ -8,13 +8,15 @@ ENV SHELL=bash
 WORKDIR /
 EXPOSE 80
 
+# Test
+RUN add-apt-repository -y ppa:ondrej/php \
+ && apt-get update -y
+
 # Install Base Packages
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
     bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties \
- && add-apt-repository -y ppa:ondrej/php \
- && apt-get update -y
 
 # Install php
 RUN apt-get install -y \
