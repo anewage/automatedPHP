@@ -29,18 +29,18 @@ EXPOSE 80
 #	&& echo "extension=mongodb.so" > /etc/php/7.0/mods-available/mongodb.ini
 
 # Install node.js
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash \
- && apt-get install -y nodejs
+#RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash \
+# && apt-get install -y nodejs
 
 # Install Additional Packages
-RUN apt-get install -y \
-    libxrender1
+#RUN apt-get install -y \
+#    libxrender1
 
 # gulp-cli
-RUN npm install --global gulp-cli
+#RUN npm install --global gulp-cli
 
 # Cleanup
-RUN rm -rf /var/cache/apt && rm -rf /var/lib/apt
+#RUN rm -rf /var/cache/apt && rm -rf /var/lib/apt
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | \
