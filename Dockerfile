@@ -1,6 +1,4 @@
-# vim:set ft=dockerfile:
-
-FROM php:7.1-fpm
+FROM ubuntu
 MAINTAINER Pooya Parsa <pooya@pi0.ir>
 MAINTAINER Amir Haghighati <haghighati.amir@gmail.com>
 
@@ -14,77 +12,32 @@ EXPOSE 80
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-    bash supervisor nginx git curl sudo zip unzip xz-utils
-    
-    
-# Install "curl", "libmemcached-dev", "libpq-dev", "libjpeg-dev", "libpng12-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev"
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    curl \
-    libmemcached-dev \
-    libz-dev \
-    libpq-dev \
-    libjpeg-dev \
-    libpng12-dev \
-    libfreetype6-dev \
-    libssl-dev \
-    libmcrypt-dev \
-  && rm -rf /var/lib/apt/lists/*
+    bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties \
+ && sudo add-apt-repository -y ppa:ondrej/php \
+ && sudo apt-get update -y
 
-# Install the PHP mcrypt extention
-RUN docker-php-ext-install mcrypt \
-  # Install the PHP pdo_mysql extention
-  && docker-php-ext-install pdo_mysql \
-  # Install the PHP pdo_pgsql extention
-  && docker-php-ext-install pdo_pgsql \
-  # Install the PHP gd library
-  && docker-php-ext-configure gd \
-    --enable-gd-native-ttf \
-    --with-jpeg-dir=/usr/lib \
-    --with-freetype-dir=/usr/include/freetype2 && \
-    docker-php-ext-install gd
-    
-# Optional packages
-RUN apt-get update -yqq && \
-    apt-get -y install libxml2-dev php-soap && \
-    docker-php-ext-install soap
-    
-RUN pecl install -o -f redis \
-    &&  rm -rf /tmp/pear \
-    &&  docker-php-ext-enable redis 
-    
-RUN pecl install mongodb && \
-    docker-php-ext-enable mongodb
-    
-RUN docker-php-ext-install zip
-
-RUN docker-php-ext-install bcmath
-
-RUN apt-get update -yqq && \
-    apt-get install -y zlib1g-dev libicu-dev g++ && \
-    docker-php-ext-configure intl && \
-    docker-php-ext-install intl
-
-RUN apt-get update -yqq && \
-    apt-get install -y libldap2-dev && \
-    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
-    docker-php-ext-install ldap
-    
-RUN apt-get update -y && \
-    apt-get install -y libmagickwand-dev imagemagick && \ 
-    pecl install imagick && \
-    docker-php-ext-enable imagick
+# Install php
+RUN apt-get install -y \
+    php7.1-xml php7.1-xsl php7.1-mbstring php7.1-readline php7.1-zip php7.1-mysql \
+    php7.1-phpdbg php7.1-interbase php7.1-sybase php7.1 php7.1-sqlite3 php7.1-tidy \
+    php7.1-opcache php7.1-pspell php7.1-json php7.1-xmlrpc php7.1-curl php7.1-ldap \
+    php7.1-bz2 php7.1-cgi php7.1-imap php7.1-cli php7.1-dba php7.1-dev php7.1-intl \
+    php7.1-fpm php7.1-recode php7.1-odbc php7.1-gmp php7.1-common php7.1-pgsql \
+    php7.1-bcmath php7.1-snmp php7.1-soap php7.1-mcrypt php7.1-gd php7.1-enchant \
+    libapache2-mod-php7.1 libphp7.1-embed \
+ && pecl install mongodb \
+ && docker-php-ext-enable mongodb
 
 # Install node.js
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash \
- && apt-get install -y nodejs build-essential
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash \
+ && apt-get install -y nodejs
 
 # Install Additional Packages
 RUN apt-get install -y \
     libxrender1
 
 # gulp-cli
-RUN npm install --global gulp-cli 
+RUN npm install --global gulp-cli
 
 # Cleanup
 RUN rm -rf /var/cache/apt && rm -rf /var/lib/apt
