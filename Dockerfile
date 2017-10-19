@@ -1,7 +1,8 @@
 # vim:set ft=dockerfile:
 
-FROM ubuntu
+FROM php:7.1-fpm
 MAINTAINER Pooya Parsa <pooya@pi0.ir>
+MAINTAINER Amir Haghighati <haghighati.amir@gmail.com>
 
 ENV HOME=/var/www
 ENV TERM=xterm
@@ -14,13 +15,65 @@ RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
     bash supervisor nginx git curl sudo zip unzip xz-utils
+    
+    
+# Install "curl", "libmemcached-dev", "libpq-dev", "libjpeg-dev", "libpng12-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev"
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    curl \
+    libmemcached-dev \
+    libz-dev \
+    libpq-dev \
+    libjpeg-dev \
+    libpng12-dev \
+    libfreetype6-dev \
+    libssl-dev \
+    libmcrypt-dev \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install php
-RUN apt-get install -y \
-    php7.0 php-apcu php7.0-bz2 php-cache php7.0-opcache php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php-geoip \
-    php-gettext php7.0-gmp php-imagick php7.0-imap php7.0-json php7.0-mcrypt php7.0-mbstring php7.0-zip \
-    php-memcached php-mongodb php-mongodb php7.0-mysql php-pear php-redis php7.0-xml php7.0-intl php7.0-soap \
-    php7.0-sqlite3 php-dompdf php-fpdf php-guzzlehttp php-guzzlehttp-psr7 php-jwt  php-ssh2 php7.0-bcmath
+# Install the PHP mcrypt extention
+RUN docker-php-ext-install mcrypt \
+  # Install the PHP pdo_mysql extention
+  && docker-php-ext-install pdo_mysql \
+  # Install the PHP pdo_pgsql extention
+  && docker-php-ext-install pdo_pgsql \
+  # Install the PHP gd library
+  && docker-php-ext-configure gd \
+    --enable-gd-native-ttf \
+    --with-jpeg-dir=/usr/lib \
+    --with-freetype-dir=/usr/include/freetype2 && \
+    docker-php-ext-install gd
+    
+# Optional packages
+RUN apt-get update -yqq && \
+    apt-get -y install libxml2-dev php-soap && \
+    docker-php-ext-install soap
+    
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis 
+    
+RUN pecl install mongodb && \
+    docker-php-ext-enable mongodb
+    
+RUN docker-php-ext-install zip
+
+RUN docker-php-ext-install bcmath
+
+RUN apt-get update -yqq && \
+    apt-get install -y zlib1g-dev libicu-dev g++ && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl
+
+RUN apt-get update -yqq && \
+    apt-get install -y libldap2-dev && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+    docker-php-ext-install ldap
+    
+RUN apt-get update -y && \
+    apt-get install -y libmagickwand-dev imagemagick && \ 
+    pecl install imagick && \
+    docker-php-ext-enable imagick
 
 # Install node.js
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash \
