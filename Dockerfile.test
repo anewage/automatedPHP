@@ -1,4 +1,4 @@
-FROM lemp-php7
+FROM linuxconfig/lemp-php7
 
 MAINTAINER Pooya Parsa <pooya@pi0.ir>
 MAINTAINER Amir Haghighati <haghighati.amir@gmail.com>
