@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 MAINTAINER Pooya Parsa <pooya@pi0.ir>
 MAINTAINER Amir Haghighati <haghighati.amir@gmail.com>
 
