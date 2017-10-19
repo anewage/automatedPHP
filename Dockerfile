@@ -19,7 +19,7 @@ RUN apt-get update \
 RUN apt-get install -y \
     php7.0 php-apcu php7.0-bz2 php-cache php7.0-opcache php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php-geoip \
     php-gettext php7.0-gmp php-imagick php7.0-imap php7.0-json php7.0-mcrypt php7.0-mbstring php7.0-zip \
-    php-memcached php7.0-mongodb php-mongodb php7.0-mysql php-pear php-redis php7.0-xml php7.0-intl php7.0-soap \
+    php-memcached php-mongodb php-mongodb php7.0-mysql php-pear php-redis php7.0-xml php7.0-intl php7.0-soap \
     php7.0-sqlite3 php-dompdf php-fpdf php-guzzlehttp php-guzzlehttp-psr7 php-jwt  php-ssh2 php7.0-bcmath
 
 # Install node.js
