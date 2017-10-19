@@ -13,8 +13,8 @@ RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
     bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties \
- && sudo add-apt-repository -y ppa:ondrej/php \
- && sudo apt-get update -y
+ && add-apt-repository -y ppa:ondrej/php \
+ && apt-get update -y
 
 # Install php
 RUN apt-get install -y \
