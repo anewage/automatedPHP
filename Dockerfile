@@ -15,8 +15,8 @@ RUN apt-get update \
     bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties software-properties-common
     
 # Test
-RUN locale-gen en_US.UTF-8 \
- && export LANG=en_US.UTF-8
+RUN locale-gen en_US.UTF-8 
+
 # Test Again!
 RUN add-apt-repository -y ppa:ondrej/php \
  && apt-get update -y
