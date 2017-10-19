@@ -12,7 +12,7 @@ EXPOSE 80
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-    bash supervisor nginx git curl sudo zip unzip xz-utils clibcurl4-openssl-dev pkg-config libssl-dev libsslcommon2-dev
+    bash supervisor nginx git curl sudo zip unzip xz-utils
 
 # Install php
 RUN apt-get install -y \
@@ -25,7 +25,9 @@ RUN apt-get install -y \
     
 #TEST
 RUN pecl install mongodb \
- && docker-php-ext-enable mongodb
+ && echo "extension=mongodb.so" > /etc/php/7.0/fpm/conf.d/20-mongodb.ini \
+	&& echo "extension=mongodb.so" > /etc/php/7.0/cli/conf.d/20-mongodb.ini \
+	&& echo "extension=mongodb.so" > /etc/php/7.0/mods-available/mongodb.ini
 
 # Install node.js
 RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash \
