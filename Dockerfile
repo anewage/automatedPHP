@@ -12,7 +12,7 @@ EXPOSE 80
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-    bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties software-properties-common \
+    bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties software-properties-common
     
 # Test
 RUN add-apt-repository -y ppa:ondrej/php \
