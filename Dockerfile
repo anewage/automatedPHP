@@ -12,7 +12,7 @@ EXPOSE 80
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-    bash supervisor nginx git curl sudo zip unzip xz-utils python-software-properties software-properties-common
+    bash supervisor nginx git curl sudo zip unzip xz-utils
 
 # Install php
 RUN apt-get install -y \
@@ -21,7 +21,7 @@ RUN apt-get install -y \
     php7.0-sqlite3 php7.0-tidy php7.0-json php7.0-mbstring php7.0-readline php7.0-xml php7.0-xsl \
     php7.0-curl php7.0-zip php7.0-ldap php7.0-pgsql php7.0-mcrypt php7.0-imap libphp7.0-embed \
     php7.0-intl php7.0-enchant php7.0-odbc php7.0-snmp php7.0-soap php7.0-sybase php7.0-phpdbg \
-    libapache2-mod-php7.0 php7.0-mysql php7.0-interbase
+    libapache2-mod-php7.0 php7.0-mysql php7.0-interbase \
  && pecl install mongodb \
  && docker-php-ext-enable mongodb
 
