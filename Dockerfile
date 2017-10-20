@@ -12,7 +12,7 @@ EXPOSE 80
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-    bash supervisor nginx git curl sudo zip unzip xz-utils
+    bash supervisor nginx git curl sudo zip unzip xz-utils pkg-config libssl-dev
 
 # Install php
 RUN apt-get install -y \
@@ -21,11 +21,11 @@ RUN apt-get install -y \
     php-memcached php-mysql php-pear php-redis php-xml php-intl php-soap \
     php-sqlite3 php-dompdf php-fpdf php-guzzlehttp php-guzzlehttp-psr7 php-jwt  php-ssh2 php-bcmath php-dev
     
-#TEST
-#RUN pecl install mongodb \
-# && echo "extension=mongodb.so" > /etc/php/7.0/fpm/conf.d/20-mongodb.ini \
-#	&& echo "extension=mongodb.so" > /etc/php/7.0/cli/conf.d/20-mongodb.ini \
-#	&& echo "extension=mongodb.so" > /etc/php/7.0/mods-available/mongodb.ini
+# Install mongodb    
+RUN pecl install mongodb \
+ && echo "extension=mongodb.so" > /etc/php/7.0/fpm/conf.d/20-mongodb.ini \
+	&& echo "extension=mongodb.so" > /etc/php/7.0/cli/conf.d/20-mongodb.ini \
+	&& echo "extension=mongodb.so" > /etc/php/7.0/mods-available/mongodb.ini
 
 # Install node.js
 RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash \
