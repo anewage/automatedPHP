@@ -28,7 +28,7 @@ RUN pecl install mongodb \
 	&& echo "extension=mongodb.so" > /etc/php/7.0/mods-available/mongodb.ini
 
 # Install node.js
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash \
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash \
  && apt-get install -y nodejs
 
 # Install Additional Packages
