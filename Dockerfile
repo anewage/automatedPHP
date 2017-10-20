@@ -12,7 +12,7 @@ EXPOSE 80
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get install -y \
-    bash supervisor nginx git curl sudo zip unzip xz-utils pkg-config libssl-dev
+    bash supervisor nginx git curl sudo zip unzip xz-utils pkg-config libssl-dev vim
 
 # Install php
 RUN apt-get install -y \
