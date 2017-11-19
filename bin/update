@@ -33,7 +33,7 @@ npm run production
 # Composer
 if [ -f composer.json ] ; then
     echo "Installing composer dependencies..."
-    composer install --prefer-source --no-ansi --no-interaction --no-progress --optimize-autoloader
+    composer update
 fi
 
 # vendor script
