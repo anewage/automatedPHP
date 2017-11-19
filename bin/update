@@ -22,11 +22,13 @@ if [ -d .git ] ; then
     if ! [ -z $GIT_BRANCH ] ; then
         git checkout $GIT_BRANCH
     fi
-    npm install
-    npm run production
 
 fi
 fi
+
+echo "Installing Node dependencies..."
+npm install
+npm run production
 
 # Composer
 if [ -f composer.json ] ; then
