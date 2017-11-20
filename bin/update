@@ -27,8 +27,8 @@ fi
 fi
 
 echo "Installing Node dependencies..."
-npm install
-npm run production
+yarn install
+yarn run production
 
 # Composer
 if [ -f composer.json ] ; then
